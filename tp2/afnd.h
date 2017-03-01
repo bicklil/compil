@@ -17,6 +17,17 @@ typedef struct {
         ullong trans[ETAT][ALPHA];  // q -l-> trans[q][l]
 } afnd;
 
+typedef struct {
+	int final;
+	int trans[27];
+}etat;
+
+typedef struct {
+	int init;
+	int nb;
+	struct etat *etats;
+}afd;
+
 int alpha(int n);
 void initafnd(afnd * A);
 void addinit(afnd * A, int s);
