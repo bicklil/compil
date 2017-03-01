@@ -18,5 +18,7 @@ int main(int argc, char * argv[])
 	finitafn(&A, "afd.txt");
   printafnd(&A);
 	printf("%lld\n",epsilon(2,&A));
+	printf("%d\n",utile(3,&A));
+	printf("%d\n",utile(12,&A));
   return 0;
 }

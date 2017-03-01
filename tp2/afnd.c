@@ -97,7 +97,7 @@ int utile(int s,afnd* A)
 	int l,q;
 	for (l=0;l<ALPHA; l++)
 	{	
-		if (A->trans[s][l] != 0 && A->trans[s][l] & (1ULL << s))
+		if (A->trans[s][l] != 0)
 			return 1;
 	}
 	for (q=0;q<ETAT;q++)
@@ -110,7 +110,7 @@ int utile(int s,afnd* A)
 				}
 			else
 				{
-				if ( A->trans[s][l] & (1ULL << s))
+				if ( A->trans[q][l] & (1ULL << s))
 					return 1;
 				}
 		}
