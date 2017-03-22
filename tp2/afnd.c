@@ -117,3 +117,98 @@ int utile(int s,afnd* A)
 	}
 	return 0;
 }
+
+afd* determinisation(afnd *A)
+{
+	int i,j;
+	afd D;
+	File** p_file = NULL;
+	ullong etat_actu;
+	D = calloc(1<<25, sizeof(*afd));
+	for(i=0; i<2^25; i++)
+		D[i] = calloc(1,sizeof(D[i]);
+
+	for (i=0; i<25; i++)
+	{
+		if(A->final == INT_ETAT(i))
+			for(j=0; j<2^25;j++)
+			{
+				if((2^i & j) == 2^i):
+					D[j].final = 1;
+			}
+		if(A->initial == INT_ETAT(i))
+			file_enqueue(p_file, epsilon(i,A));
+	}
+
+	etat_actu = file_dequeue(p_file);
+	while(etat_actu != -1)
+	{
+		if (test_afd(D, etat_actu))
+		{
+			marque_afd(D, etat_actu);
+			ajout_file(p_file, etat_actu, A);
+		}
+		etat_actu = file_dequeue(p_file);
+	}
+}
+
+void file_enqueue(File **p_file, ullong donnee)
+{
+	File *p_nouveau = malloc(sizeof *p_nouveau);
+	if (p_nouveau != NULL)
+    {
+        p_nouveau->suivant = NULL;
+        p_nouveau->donnee = donnee;
+        if (*p_file == NULL)
+        {
+            *p_file = p_nouveau;
+        }
+        else
+        {
+            File *p_tmp = *p_file;
+            while (p_tmp->suivant != NULL)
+            {
+                p_tmp = p_tmp->suivant;
+            }
+            p_tmp->suivant = p_nouveau;
+        }
+    }
+}
+
+ullong file_dequeue(File **p_file)
+{
+
+    ullong ret = -1;
+
+    /* On teste si la file n'est pas vide. */
+
+    if (*p_file != NULL)
+
+    {
+
+        /* Création d'un élément temporaire pointant vers le deuxième élément de la file. */
+
+        File *p_tmp = (*p_file)->suivant;
+
+        /* Valeur à retourner */
+
+        ret = (*p_file)->donnee;
+
+        /* Effacement du premier élément. */
+
+        free(*p_file), *p_file = NULL;
+
+        /* On fait pointer la file vers le deuxième élément. */
+
+        *p_file = p_tmp;
+
+    }
+
+    return ret;
+
+}
+
+int test_afd(afd D, ullong etat)
+{
+	
+}

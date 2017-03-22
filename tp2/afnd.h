@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 #define ALPHA 27
-#define ETAT  64
+#define ETAT  25
 
 #define INT_ETAT(s) (1ULL<< (s))
 #define IN(s,X) ((INT_ETAT(s) & X ) > 0)
@@ -18,15 +18,23 @@ typedef struct {
 } afnd;
 
 typedef struct {
+	int mark;
 	int final;
 	int trans[27];
 }etat;
 
-typedef struct {
-	int init;
-	int nb;
-	struct etat *etats;
-}afd;
+typedef struct etat *afd;
+
+typedef struct file
+{
+	ullong donnee;
+	struct file *suivant;
+}File;
+
+void file_enqueue(File **p_file, ullong donnee);
+ullong file_dequeue(File **p_file);
+
+
 
 int alpha(int n);
 void initafnd(afnd * A);
@@ -37,4 +45,8 @@ void printafnd(afnd * A);
 void finitafn(afnd *A, char * f);
 ullong epsilon(int s, afnd* A);
 int utile(int s, afnd *A);
+afd* determinisation(afnd *A);
+int test_afd(afd D, ullong etat);
+void marque_afd(afd D, ullong etat);
+void ajout_file(File **p_file, ullong etat,afnd* A);
 #endif
