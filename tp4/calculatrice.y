@@ -6,14 +6,14 @@
     int yylval;
     int myexp(int, int);
 %}
-%token NB PLUS FOIS FIN PARO PARF DIVISE SOUSTRACTION ESPACE TAB
+%token NB PLUS FOIS FIN PARO PARF DIVISE SOUSTRACTION ESPACE TAB 
 %left PLUS
 %left FOIS
 %start PROG
 
 %%
 
-PROG: EXP FIN { printf("%d", $1 ); return 1;}
+PROG: EXP FIN { printf("%d\n", $1 ); return 1;}
 EXP   : NB { $$ = $1 ;}
       | EXP PLUS EXP { $$ = $1 + $3 ;}
       | EXP FOIS EXP { $$ = $1 * $3 ;}
@@ -24,7 +24,7 @@ EXP   : NB { $$ = $1 ;}
       | ESPACE EXP{$$ = $2;}
       | TAB EXP{$$ = $2;}
       | EXP TAB{$$ = $1;}
-      | PARO EXP PARF{$$ = $2;  }
+      | PARO EXP PARF{$$ = $2;}
       ;
 %%
 int main(void){
@@ -43,23 +43,26 @@ int yylex(){
           tempo = tempo * 10 +(car - '0');
           car = getchar();
         }
+        ungetc(car,stdin);
         yylval = tempo;
         return NB;
         }
     switch(car){
         case '+': return PLUS;
         case '*': return FOIS;
-        case '=': return FIN;
         case '/': return DIVISE;
         case '-': return SOUSTRACTION;
         case ' ': return ESPACE;
         case '\t': return TAB;
         case '(': return PARO;
         case ')': return PARF;
+        case '=': return FIN;
         }
+    return 0;
     }
 int yyerror(char *msg){
     printf("\n%s\n", msg);
+    return 1;
     }
 
 int myexp(int x, int n){
