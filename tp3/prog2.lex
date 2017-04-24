@@ -14,7 +14,7 @@ MOT {LETTRE}+
 CHIFFRE [0-9]
 NOMBRE {CHIFFRE}+
 %%
-{MOT} { inserer(yytext, liste);printf("%s\n",yytext);}
+{MOT} { inserer(yytext, liste);}
 {BLANC}
 .
 %%

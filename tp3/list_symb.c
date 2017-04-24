@@ -4,9 +4,10 @@
 #include<string.h>
 
 int inserer(char *nom, list_symb *ptr){
-
     if (ptr->count == -1){
-        ptr->symb = nom;
+        ptr->symb = malloc(strlen(nom)+1);
+        strcpy(nom, ptr->symb);
+
         ptr->count = 1;
         ptr->suiv = NULL;
         return 1;
@@ -19,11 +20,12 @@ int inserer(char *nom, list_symb *ptr){
         else ptr = ptr->suiv;}
     ptr->suiv = malloc(sizeof(list_symb));
     ptr = ptr->suiv;
-    ptr->symb = nom;
+    ptr->symb = malloc(strlen(nom)+1);
+    strcpy(nom, ptr->symb);
     ptr->count = 1;
     ptr->suiv = NULL;
     return 1;
-    
+
 }
 
 void print_list(list_symb *ptr){
