@@ -6,7 +6,7 @@
 int inserer(char *nom, list_symb *ptr){
     if (ptr->count == -1){
         ptr->symb = malloc(strlen(nom)+1);
-        strcpy(nom, ptr->symb);
+        strcpy(ptr->symb, nom);
 
         ptr->count = 1;
         ptr->suiv = NULL;
@@ -21,7 +21,7 @@ int inserer(char *nom, list_symb *ptr){
     ptr->suiv = malloc(sizeof(list_symb));
     ptr = ptr->suiv;
     ptr->symb = malloc(strlen(nom)+1);
-    strcpy(nom, ptr->symb);
+    strcpy(ptr->symb, nom);
     ptr->count = 1;
     ptr->suiv = NULL;
     return 1;
