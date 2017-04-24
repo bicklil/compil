@@ -1,7 +1,7 @@
 all: simul.exe
 
 
-afnd.o : afnd.c
+afnd.o : afnd.c afnd.h
 	clang -g -Wall -c afnd.c
 
 simul.o: simul.c
