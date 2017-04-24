@@ -131,7 +131,6 @@ afd determinisation(afnd *A){
                 if (IN(s,x)) X |= epsilon(A->trans[s][c], A);
                 D[x].trans[c] = X;
                 if (D[X].mark == 0) file_enqueue(&f, X);
-                else
                 printf("%lld\n",X);
                 }
             }
