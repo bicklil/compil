@@ -117,7 +117,6 @@ afd determinisation(afnd *A){
     D = calloc(1<<19, sizeof(etat));
 
     File* f=NULL;
-    //f = malloc(sizeof(File));
     ullong init;
     init = epsilon(0, A);
     file_enqueue(&f, init);
@@ -125,17 +124,20 @@ afd determinisation(afnd *A){
     x = file_dequeue(&f);
     D[x].mark = 1;
     while(x != -1){
+      printf("%lld\n",x);
         for(c=1; c<ALPHA; c++){
             X = 0;
             for(s=0; s<19; s++){
-                if (IN(s,x)) X |= epsilon(A->trans[s][c], A);
-                D[x].trans[c] = X;
-                if (D[X].mark == 0) file_enqueue(&f, X);
-                printf("%lld\n",X);
-                }
+                if (IN(s,x))
+                  {X |= epsilon(A->trans[s][c], A);
+                  D[x].trans[c] = X;}
+                if (D[X].mark == 0)
+                { file_enqueue(&f, X);
+                D[X].mark = 1;}}
+
             }
+        printf("%p\n",f);
         x = file_dequeue(&f);
-        D[x].mark = 1;
         }
     return D;
     }
@@ -161,11 +163,13 @@ void file_enqueue(File **p_file, ullong donnee){
 
 ullong file_dequeue(File **p_file){
     ullong ret = -1;
+    printf("%p\n",*p_file);
     if(*p_file != NULL){
         File *p_tmp = (*p_file)->suivant;
         ret = (*p_file)->donnee;
         free(*p_file), *p_file = NULL;
         *p_file = p_tmp;
         }
+    else ret = -1;
     return ret;
     }
